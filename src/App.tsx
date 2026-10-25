@@ -65,14 +65,18 @@ export default function App() {
       <header className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pt-6 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
-          <div className="flex gap-2" role="group" aria-label="Format">
-            <FormatButton active={view === "site"} onClick={() => chooseView("site")}>
-              Website
-            </FormatButton>
-            <FormatButton active={view === "sheet"} onClick={() => chooseView("sheet")}>
-              Excel
-            </FormatButton>
-          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <span className="text-muted-foreground">View</span>
+            <select
+              value={view}
+              aria-label="View"
+              onChange={(event) => chooseView(event.target.value === "sheet" ? "sheet" : "site")}
+              className="rounded-md border border-border bg-card px-3 py-1.5 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <option value="site">Website</option>
+              <option value="sheet">Excel</option>
+            </select>
+          </label>
         </div>
         {view === "sheet" ? null : (
         <>
@@ -172,23 +176,6 @@ export default function App() {
         Together from Hall of Thanes. Stops at 40. Quest xp from Forever Companion, 24 Oct 2026, 20:03 Europe/Warsaw.
       </footer>
     </div>
-  );
-}
-
-function FormatButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: string }) {
-  return (
-    <button
-      type="button"
-      aria-pressed={active}
-      onClick={onClick}
-      className={cn(
-        "rounded-md border px-3 py-1.5 text-sm",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        active ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:text-foreground",
-      )}
-    >
-      {children}
-    </button>
   );
 }
 
