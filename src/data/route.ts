@@ -1,0 +1,472 @@
+export type StartId = "elwynn" | "coldridge";
+
+export type MapId =
+  | "elwynn"
+  | "dunmorogh"
+  | "westfall"
+  | "loch"
+  | "wetlands"
+  | "ironforge"
+  | "stormwind"
+  | "duskwood"
+  | "redridge"
+  | "hillsbrad"
+  | "stv"
+  | "tirisfal";
+
+export type Line = {
+  who: string;
+  text: string;
+  way?: string;
+  map?: MapId;
+  link?: string;
+  href?: string;
+};
+
+export type Block = { title: string; lines: Line[] };
+
+export type Stage = {
+  id: string;
+  level: number;
+  dungeon?: boolean;
+  elwynn: Block;
+  coldridge: Block;
+};
+
+const q = (id: number, slug: string) => `https://www.wowhead.com/forever/quest=${id}/${slug}`;
+const item = (id: number, slug: string) => `https://www.wowhead.com/forever/item=${id}/${slug}`;
+const spell = (id: number, slug: string) => `https://www.wowhead.com/forever/spell=${id}/${slug}`;
+
+function L(who: string, text: string, way?: string, map?: MapId, link?: string, href?: string): Line {
+  return { who, text, way, map, link, href };
+}
+
+function pack(
+  level: number,
+  elwynnTitle: string,
+  elwynn: Line[],
+  coldridgeTitle: string,
+  coldridge: Line[],
+  dungeon?: boolean,
+): Stage {
+  return {
+    id: `l${String(level).padStart(2, "0")}`,
+    level,
+    dungeon,
+    elwynn: { title: elwynnTitle, lines: elwynn },
+    coldridge: { title: coldridgeTitle, lines: coldridge },
+  };
+}
+
+function same(level: number, title: string, lines: Line[], dungeon?: boolean): Stage {
+  return pack(level, title, lines, title, lines, dungeon);
+}
+
+export const parties: Record<StartId, { name: string; role: string }[]> = {
+  elwynn: [
+    { name: "Lvx", role: "human hunter. Tailor, herb." },
+    { name: "Dvx", role: "human rogue. Mine, enchant." },
+  ],
+  coldridge: [
+    { name: "Chorrengodx", role: "dwarf shaman." },
+    { name: "Dorpan", role: "gnome warrior. Mine, smith." },
+    { name: "Whilind", role: "gnome priest." },
+  ],
+};
+
+export const stages: Stage[] = [
+  pack(
+    1,
+    "Northshire",
+    [
+      L("Lvx", "Nancy Songflower, Herbalism Trainer", "52.4 43.8", "elwynn"),
+      L("Dvx", "Kelsey Fargo, Mining Trainer", "47.2 32.3", "elwynn"),
+      L("Lvx", "pickup. Deputy Willem. Share.", "48.2 43.0", "elwynn"),
+      L("Lvx", "drop. Marshal McBride. Both.", "48.9 41.6", "elwynn"),
+      L("Lvx", "wolves. Eagan Peltskinner. Share.", "48.9 40.2", "elwynn"),
+      L("Dvx", "same wolves"),
+    ],
+    "Coldridge",
+    [
+      L("Chorrengodx", "dwarf shaman. Ask a guard. Gnome cannot be shaman."),
+      L("all", "spawn", "29.9 72.0", "dunmorogh"),
+      L("Dorpan", "pickup. Sten Stoutarm. Share.", "29.9 71.3", "dunmorogh"),
+      L("all", "Emrys Flintbeard, Herbalism Trainer", "28.8 66.6", "dunmorogh"),
+      L("Dorpan", "Sally Swiftwrench, Mining Trainer", "28.9 67.8", "dunmorogh"),
+      L("Chorrengodx", "water. Adlin Pridedrift", "30.0 71.6", "dunmorogh", "Refreshing Spring Water", item(159, "refreshing-spring-water")),
+      L("Whilind", "same water"),
+    ],
+  ),
+  pack(
+    2,
+    "Kobolds",
+    [
+      L("Lvx", "kobolds. Marshal McBride. Share.", "48.9 41.6", "elwynn"),
+      L("Lvx", "books. Brother Paxton. Share.", "49.6 40.4", "elwynn"),
+      L("Dvx", "same camps"),
+    ],
+    "Troll cave",
+    [
+      L("Dorpan", "pickup. Grelin Whitebeard. Share.", "25.0 75.6", "dunmorogh"),
+      L("all", "stay on the boss"),
+    ],
+  ),
+  pack(
+    3,
+    "Echo Ridge",
+    [
+      L("Dvx", "drop. Kelsey Fargo. Mining Consultant", "47.2 32.3", "elwynn"),
+      L("Dvx", "pickup. Brother Paxton. Share.", "49.6 40.4", "elwynn"),
+      L("Lvx", "Big Picture. Drop Marshal McBride", "48.9 41.6", "elwynn"),
+    ],
+    "Cave",
+    [L("all", "same boss")],
+  ),
+  pack(
+    4,
+    "Books, or the dock",
+    [
+      L("Lvx", "kobold books. Brother Paxton", "49.6 40.4", "elwynn"),
+      L("Lvx", "Tordrin Sternblade, Hunter Trainer", "51.2 40.9", "elwynn"),
+      L("Dvx", "Jorik Kerridan, Rogue Trainer", "50.5 40.0", "elwynn"),
+      L("Dvx", "dock. Jerod's Landing. No pin."),
+    ],
+    "Out of the cave",
+    [L("all", "drop. Mountaineer Thalos", "33.4 71.9", "dunmorogh")],
+  ),
+  pack(
+    5,
+    "Farms, cook, camp",
+    [
+      L("Lvx", "farm pigs. Stonefield. No pin."),
+      L("Dvx", "same pigs"),
+      L("Lvx", "Eldrin, Tailoring Trainer", "79.3 69.1", "elwynn"),
+      L("Lvx", "Tomas, Cooking Trainer", "44.3 66.0", "elwynn"),
+      L("Lvx", "camp. Sam Sarsaparilla. Sit.", "44.8 63.2", "elwynn"),
+      L("Lvx", "herb camp at 20. Herbalist Pomeroy", "39.8 48.4", "elwynn"),
+      L("Lvx", "Incense Candle. Int. No stack with Arcane Intellect."),
+      L("Lvx", "Faction Banner at tailor 20. Spirit. No stack with Divine Spirit."),
+      L("all", "hearth. Innkeeper Farley", "43.8 65.9", "elwynn"),
+      L("all", "Rested is kill xp. Log out here."),
+    ],
+    "Kharanos",
+    [
+      L("Dorpan", "Tognus Flintfire, Blacksmithing Trainer", "45.3 52.0", "dunmorogh"),
+      L("Dorpan", "Rough Weightstone. Blunt. +2. 30 min. 1 Rough Stone.", undefined, undefined, "Rough Weightstone", spell(3115, "rough-weightstone")),
+      L("Dorpan", "Rough Sharpening Stone. Blades."),
+      L("Dorpan", "Sharpening Wheel at smith 20. Strength. No stack with Strength of Earth."),
+      L("all", "hearth. Tannok Frosthammer, Innkeeper Assistant", "47.2 52.1", "dunmorogh"),
+      L("all", "Gremlock Pilsnor, Cooking Trainer", "47.6 52.4", "dunmorogh"),
+      L("Whilind", "Ice Cold Milk. Innkeeper Belm", "47.4 52.6", "dunmorogh", "Ice Cold Milk", item(1179, "ice-cold-milk")),
+      L("Chorrengodx", "same milk"),
+      L("Whilind", "Maxan Anvol, Priest Trainer", "47.3 52.3", "dunmorogh"),
+      L("all", "camp. Eric Brighthammer", "46.6 53.8", "dunmorogh"),
+      L("all", "Rested is kill xp. Log out here."),
+    ],
+  ),
+  pack(
+    6,
+    "Fish",
+    [
+      L("Lvx", "Lee Brown, Fishing Trainer. Crystal Lake. No pin."),
+      L("Lvx", "Tailor and herb stay the two professions."),
+      L("Dvx", "stay with Lvx"),
+    ],
+    "Earth",
+    [L("Chorrengodx", "earth quest. Can't share. No pin. Not Earthseer Farsen."), L("Dorpan", "with him"), L("Whilind", "with him")],
+  ),
+  pack(
+    7,
+    "Pigs, Rare Books",
+    [
+      L("Lvx", "pickup. Marshal Dughan. Share.", "42.2 65.8", "elwynn", "Rare Books", q(91777, "rare-books")),
+      L("Lvx", "drop. Brother Paxton. Bow.", "49.6 40.4", "elwynn"),
+      L("Dvx", "same drop. Sword."),
+      L("Lvx", "farm pigs again"),
+      L("Lvx", "Peacebloom. Silverleaf."),
+    ],
+    "Kharanos road",
+    [L("all", "stay together")],
+  ),
+  pack(
+    8,
+    "Dock",
+    [
+      L("Lvx", "dock. Linen."),
+      L("Dvx", "same dock"),
+      L("Lvx", "bolt it. Push tailor to 20."),
+    ],
+    "Frostmane Hold",
+    [L("Dorpan", "pickup. Senir Whitebeard. Share.", "46.7 53.7", "dunmorogh")],
+  ),
+  pack(
+    9,
+    "Dock",
+    [L("Lvx", "dock"), L("Dvx", "dock")],
+    "Hold",
+    [L("all", "stay in Dun Morogh. Hall chain is next.")],
+  ),
+  pack(
+    10,
+    "Train",
+    [
+      L("Lvx", "Tordrin Sternblade, Hunter Trainer. Tame Beast.", "51.2 40.9", "elwynn"),
+      L("Dvx", "Keryn Sylvius, Rogue Trainer", "43.8 65.9", "elwynn"),
+    ],
+    "Beldin",
+    [
+      L("Dorpan", "pickup. Beldin Steelgrill. Share.", "50.4 49.0", "dunmorogh"),
+      L("all", "drop. Earthseer Farsen.", "64.8 58.4", "dunmorogh"),
+      L("Dorpan", "Share the next."),
+      L("Chorrengodx", "class quest. Can't share. Needs the three."),
+      L("Dorpan", "warrior trainer. Ask a guard."),
+    ],
+  ),
+  pack(
+    11,
+    "Dock, wolf",
+    [
+      L("Lvx", "dock"),
+      L("Lvx", "tame a level 11 Coyote Packleader. Skip the 12s. Furious Howl. Melee for the group.", "47.2 18.8", "westfall"),
+      L("Dvx", "dock"),
+    ],
+    "Stonesplinter",
+    [
+      L("all", "troggs. No pin."),
+      L("Whilind", "Maxan Anvol, Priest Trainer", "47.3 52.3", "dunmorogh"),
+      L("Dorpan", "class quest. Can't share."),
+    ],
+  ),
+  pack(
+    12,
+    "Hogger, Sentinel Hill",
+    [
+      L("Lvx", "poster. Share with Dvx."),
+      L("Lvx, Dvx", "Hogger", "26.4 93.6", "elwynn"),
+      L("Lvx, Dvx", "drop. Marshal Dughan. Goldshire", "42.2 65.8", "elwynn"),
+      L("Lvx", "FP. Gryan Stoutmantle", "56.3 47.5", "westfall"),
+      L("Lvx, Dvx", "hearth. Innkeeper Allison", "60.5 75.3", "stormwind"),
+      L("Dvx", "Betty Quin, Enchanting Trainer", "43.2 63.8", "stormwind"),
+      L("Lvx, Dvx", "tram. Herb and mine already trained."),
+      L("Dvx", "Lodestone at mining 20. After Strength of Earth is down."),
+    ],
+    "Wait in Loch",
+    [L("all", "troggs. Chain already on Dorpan.")],
+  ),
+  same(
+    13,
+    "Hall of Thanes",
+    [
+
+      L("all", "FP", "55.9 47.9", "ironforge"),
+      L("all", "spies. Everyone loots a map.", "76.7 60.7", "dunmorogh"),
+      L("Dorpan", "Earthseer Farsen. Share after the maps. 3190 xp.", "64.8 58.4", "dunmorogh", "Old Ironforge Incursion", q(96393, "old-ironforge-incursion")),
+      L("all", "door. Left of the High Seat.", "43.5 52.0", "ironforge"),
+      L("all", "portal", "27.8 47.9", "ironforge"),
+      L("Whilind", "Afadra Dunwall, Lorekeeper. Share.", "33.0 48.0", "ironforge", "The Restless Dead", q(96394, "the-restless-dead")),
+      L("Lvx", "Thom Filch. Share.", "32.4 44.8", "ironforge", "Important Heirlooms", q(96403, "important-heirlooms")),
+      L("Dorpan", "Ghostly Attendant. Share.", undefined, undefined, "An Ancient Grudge", q(96395, "an-ancient-grudge")),
+      L("all", "tablet. Everyone. Can't share.", "39.4 55.8", "ironforge", "The Treaty of Understanding", q(98423, "the-treaty-of-understanding")),
+      L("all", "Clear Faldrim, Magmatus, Plunder, Durgen. Kegs first. Pull Plunder back."),
+      L("all", "All five drop King Magni Bronzebeard before anyone leaves."),
+      L("Lvx", "Blunderbuss", undefined, undefined, "Calibrated Blunderbuss", item(279894, "calibrated-blunderbuss")),
+      L("Chorrengodx", "Greathammer", undefined, undefined, "Ironforge Greathammer", item(279895, "ironforge-greathammer")),
+      L("Dorpan", "Greathammer"),
+      L("Whilind", "Deepblaze", undefined, undefined, "Deepblaze", item(279896, "deepblaze")),
+    ],
+    true,
+  ),
+  same(14, "Stonesplinter", [
+    L("all", "five down from Ironforge"),
+    L("Dvx, Dorpan", "Brock Stoneseeker, Mining Trainer. Skill 50.", "37.2 46.8", "loch"),
+    L("Lvx", "Kali Healtouch, Herbalism Trainer. Skill 50.", "36.6 48.4", "loch"),
+    L("all", "Thelsamar FP together"),
+  ]),
+  same(15, "One road", [
+    L("Full group", "troggs"),
+    L("Whilind", "Melon Juice. Thelsamar."),
+    L("Chorrengodx", "same juice"),
+    L("Dorpan", "fresh weightstones and sharpening stones"),
+    L("Full group", "Log out in Thelsamar."),
+  ]),
+  same(16, "Troggs done", [L("Full group", "finish the yellow camps. Then Westfall.")]),
+  same(17, "Sentinel Hill", [
+    L("Dvx", "pickup. Gryan Stoutmantle. Share. Come back.", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
+    L("Full group", "crabs and gnolls while the log fills"),
+  ]),
+  same(18, "Wells, Lakeshire", [
+    L("Lvx", "pickup. Alba Fairmoon. Share.", "52.4 53.0", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
+    L("Dorpan", "pickup. Wiley the Black. Share. Come back.", "21.4 45.4", "redridge"),
+    L("Dorpan", "Guard Berton at 22. Dorin Songblade at 24. Share when they are up."),
+  ]),
+  same(19, "Moonbrook", [
+    L("Full group", "door. Do not zone in.", "42 72", "westfall"),
+    L("Dvx", "crates, Master Mathias Shaw, dynamite. Share. Come back. Follow the quest text.", "78.3 70.7", "stormwind"),
+    L("Full group", "messenger, then the escort"),
+  ]),
+  same(
+    20,
+    "Deadmines",
+    [
+      L("Dvx", "Wilder Thistlenettle. Share. Come back.", "65 21", "stormwind", "Collecting Memories", q(168, "collecting-memories")),
+      L("Dvx", "same Wilder Thistlenettle. Share.", "65 21", "stormwind", "Oh Brother", q(167, "oh-brother")),
+      L("Dvx", "Shoni the Shilent. Share. If it refuses, everyone.", "55 13", "stormwind", "Underground Assault", q(2040, "underground-assault")),
+      L("Whilind", "Scout Riell. Share.", "56.7 47.4", "westfall", "Red Silk Bandanas", q(214, "red-silk-bandanas")),
+      L("Full group", "door", "42 72", "westfall"),
+      L("Full group", "one clear. Do not reset."),
+      L("Full group", "letter. Everyone loots. Can't share."),
+      L("Full group", "drop. Gryan Stoutmantle", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
+      L("Full group", "drop. Scout Riell", "56.7 47.4", "westfall"),
+      L("Full group", "drop. Wilder Thistlenettle", "65 21", "stormwind"),
+      L("Full group", "drop. Shoni the Shilent", "55 13", "stormwind"),
+      L("Full group", "plant. Drop Alba Fairmoon.", "38.4 83.4", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
+      L("Full group", "letter. Everyone. Baror Alexston.", "57.6 47.8", "stormwind"),
+      L("Dvx", "Poisons. Master Mathias Shaw. Old Town. Then Agent Kearnen, Westfall.", "78.3 70.7", "stormwind"),
+      L("Dorpan", "Yorus Barleybrew. Lakeshire inn."),
+      L("Chorrengodx", "Call of Water. Eldrun Stormbreaker", "47.4 13.6", "ironforge", "Call of Water", q(94494, "call-of-water")),
+      L("Chorrengodx", "drop. Norric Lochthane. Loch", "41.8 19.0", "loch"),
+      L("Chorrengodx", "Water chain on the road. Leave Ashenvale."),
+      L("Lvx", "Bags, or sleep. Optional."),
+      L("Whilind", "Same. More rested."),
+    ],
+    true,
+  ),
+  same(21, "Wetlands",[
+    L("Full group", "Dun Algaz into Menethil"),
+    L("Full group", "hearth in Menethil"),
+    L("Dvx", "Poisons still open if the tower is left."),
+    L("Dorpan", "Yorus still open."),
+    L("Chorrengodx", "Water chain still open."),
+    L("Lvx", "Sleep if they are still out."),
+    L("Whilind", "Same."),
+  ]),
+  same(22, "Gnolls", [
+    L("Full group", "Menethil road"),
+    L("Dorpan", "Guard Berton. Share. Come back.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
+  ]),
+  same(23, "Dun Modr", [
+    L("Full group", "orcs"),
+    L("Dorpan", "Motley Garmason. Share. May still be grey.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
+  ]),
+  same(24, "Orcs", [L("Full group", "Wetlands orcs")]),
+  same(25, "Raptors", [
+    L("Whilind", "Sweet Nectar. Menethil."),
+    L("Chorrengodx", "same nectar"),
+    L("Dvx", "James Halloran. Share. Hides on the way.", "8.6 55.7", "wetlands", "Highland Hides", q(98815, "highland-hides")),
+  ]),
+  same(
+    26,
+    "Stockade",
+    [
+      L("Dorpan", "Guard Berton. Share. Come back.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
+      L("Whilind", "Councilman Millstipe. Share. Come back.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
+      L("Dorpan", "Motley Garmason. Share. Dun Modr.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
+      L("Dvx", "Nikova Raskol. Share. Come back.", "73.8 54.6", "stormwind", "The Color of Blood", q(388, "the-color-of-blood")),
+      L("Lvx", "Warden Thelwater. Share.", "51.5 69.4", "stormwind", "Quell The Uprising", q(387, "quell-the-uprising")),
+      L("Lvx", "Riots. Share after every letter. If it refuses, everyone.", "51.5 69.4", "stormwind", "The Stockade Riots", q(391, "the-stockade-riots")),
+      L("Full group", "Mage Quarter canal. One clear."),
+    ],
+    true,
+  ),
+  same(27, "Darkshire", [
+    L("Full group", "FP. Ghouls."),
+    L("Whilind", "Councilman Millstipe. Share if he is up.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
+  ]),
+  same(28, "Raven Hill", [L("Full group", "ghouls")]),
+  same(29, "Ghouls", [
+    L("Full group", "finish, then the dig"),
+    L("Lvx", "Dorin Songblade. Share. Come back.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
+  ]),
+  same(
+    30,
+    "Excavation",
+    [
+      L("Lvx", "Dorin Songblade. Share. Come back.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
+      L("Lvx", "Rethiel the Greenwarden. Share.", "56.3 40.3", "wetlands", "Horrors in the Highland", q(95646, "horrors-in-the-highland")),
+      L("Whilind", "Caitlin Grassman. Share. Menethil.", "11.9 58.8", "wetlands", "Lost in the Thicker Things", q(95647, "lost-in-the-thicket-things")),
+      L("Full group", "Skip Ashenvale.", undefined, undefined, "Seeking Caitlin", q(95737, "seeking-caitlin")),
+      L("Full group", "above Whelgar. One clear."),
+      L("Full group", "relic. Whoever loots. Can't share.", undefined, undefined, "Lost Relic Carry", q(95810, "lost-relic-carry")),
+      L("Dorpan", "Daewwn Songblade. Share.", undefined, undefined, "Fallen in the Fen", q(95795, "fallen-in-the-fen")),
+      L("Full group", "drop. Dorin Songblade.", "25.6 46.6", "redridge"),
+    ],
+    true,
+  ),
+  same(
+    31,
+    "Dalaran",
+    [
+      L("Lvx", "High Sorcerer Andromath. Share. Come back.", "37.6 81.6", "stormwind", "Power Overwhelming", q(92489, "power-overwhelming")),
+      L("Dvx", "Archmage Modera. Share. If Heart refuses, everyone.", undefined, undefined, "Heart of Disruption", q(92458, "heart-of-disruption")),
+      L("Dvx", "same Archmage Modera. Share.", undefined, undefined, "Starving Arcane", q(92457, "starving-arcane")),
+      L("Dvx", "Shylamiir. Share.", undefined, undefined, "A Green Sample", q(92456, "a-green-sample")),
+      L("Whilind", "Magus Olvek. Share.", undefined, undefined, "Past Due", q(96800, "past-due")),
+      L("Full group", "Door pin 44.0 30.1 is not confirmed. One clear. Beta-locked in the 24 Oct set."),
+    ],
+    true,
+  ),
+  same(
+    32,
+    "Graveyard, Library",
+    [
+      L("Whilind", "Raleigh the Devout. Share. Come back.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
+      L("Dorpan", "Librarian Mae Paledust. Share. Come back.", "74.6 12.6", "ironforge", "Mythology of the Titans", q(1050, "mythology-of-the-titans")),
+      L("Full group", "Graveyard first. No separate Alliance quest."),
+      L("Full group", "Magus Olvek's book is in here", undefined, undefined, "Past Due", q(96800, "past-due")),
+    ],
+    true,
+  ),
+  same(33, "Armory", [
+    L("Full group", "Herod. One clear. On Raleigh the Devout."),
+  ], true),
+  same(34, "Southshore", [
+    L("Full group", "hearth. FP."),
+    L("Whilind", "Moonberry Juice at 35."),
+    L("Chorrengodx", "same juice"),
+    L("Full group", "Log out here."),
+  ]),
+  same(
+    35,
+    "Cathedral",
+    [
+      L("Full group", "this wing only. One clear."),
+      L("Full group", "drop. Raleigh the Devout. Southshore.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
+    ],
+    true,
+  ),
+  same(36, "Refuge Pointe", [L("Full group", "FP from Southshore. Farm the road.")]),
+  same(37, "Out of Arathi", [L("Full group", "when quests go green, south to Stranglethorn")]),
+  same(38, "Rebel Camp", [L("Full group", "FP. Nesingwary, then the north camps.")]),
+  same(
+    39,
+    "Drowned City",
+    [
+      L("Full group", "one swim. West of Grom'gol. No confirmed pin."),
+      L("Full group", "No Alliance quest.", undefined, undefined, "Ancient Gurubashi Idol", q(96774, "ancient-gurubashi-idol")),
+      L("Full group", "back to Rebel Camp"),
+    ],
+    true,
+  ),
+  same(40, "Booty Bay", [
+    L("Full group", "FP. Hand in. Stop."),
+    L("Full group", "Next door is Riverglades and Krol'dok."),
+  ]),
+];
+
+export type FilterId = "all" | "openers" | "dungeons";
+
+export const filters: { id: FilterId; label: string }[] = [
+  { id: "all", label: "1–40" },
+  { id: "openers", label: "1–12" },
+  { id: "dungeons", label: "Dungeons" },
+];
+
+export function matches(stage: Stage, filter: FilterId) {
+  if (filter === "openers") return stage.level <= 12;
+  if (filter === "dungeons") return stage.dungeon === true;
+  return true;
+}
+
+export function blockFor(stage: Stage, start: StartId) {
+  return stage.level >= 13 ? stage.elwynn : stage[start];
+}
