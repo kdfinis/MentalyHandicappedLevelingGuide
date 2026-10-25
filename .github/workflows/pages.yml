@@ -31,7 +31,7 @@ jobs:
         run: npm ci
       - name: Build
         env:
-          PAGES_BASE: /MentalyHandicappedLevelingGuide/
+          PAGES_BASE: /Swedish-Team-Level-Guide/
         run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -45,6 +45,7 @@ export default function App() {
   return (
     <div className="min-h-screen pb-16">
       <header className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pt-6 sm:px-6">
+        <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Start">
           <StartButton active={start === "elwynn"} onClick={() => setStart("elwynn")}>
             Elwynn
