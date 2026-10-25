@@ -1,9 +1,16 @@
 import { useMemo, useState } from "react";
 import { LevelRail } from "./components/LevelRail";
+import { RouteBook } from "./components/RouteBook";
 import { StageCard } from "./components/StageCard";
 import { bonuses } from "./data/bonuses";
 import { filters, matches, parties, stages, type FilterId, type StartId } from "./data/route";
 import { cn } from "./lib/cn";
+
+type ViewId = "site" | "sheet";
+
+function initialView(): ViewId {
+  return new URLSearchParams(window.location.search).get("view") === "sheet" ? "sheet" : "site";
+}
 
 function initialStage() {
   const hash = window.location.hash.replace("#", "");
@@ -16,6 +23,7 @@ export default function App() {
   const [expanded, setExpanded] = useState(true);
   const [filter, setFilter] = useState<FilterId>("all");
   const [bonusId, setBonusId] = useState(bonuses[0].id);
+  const [view, setView] = useState<ViewId>(initialView);
   const bonus = bonuses.find((item) => item.id === bonusId) ?? bonuses[0];
   const visible = useMemo(() => stages.filter((stage) => matches(stage, filter)), [filter]);
 
@@ -24,7 +32,9 @@ export default function App() {
     if (stage && !matches(stage, filter)) setFilter("all");
     setCurrentId(id);
     setExpanded(true);
-    window.history.replaceState(null, "", `#${id}`);
+    const url = new URL(window.location.href);
+    url.hash = id;
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     requestAnimationFrame(() => {
       document.getElementById(id)?.scrollIntoView({
@@ -32,6 +42,14 @@ export default function App() {
         block: "start",
       });
     });
+  }
+
+  function chooseView(next: ViewId) {
+    setView(next);
+    const url = new URL(window.location.href);
+    if (next === "sheet") url.searchParams.set("view", "sheet");
+    else url.searchParams.delete("view");
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   }
 
   function toggle(id: string) {
@@ -45,7 +63,19 @@ export default function App() {
   return (
     <div className="min-h-screen pb-16">
       <header className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pt-6 sm:px-6">
-        <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
+          <div className="flex gap-2" role="group" aria-label="Format">
+            <FormatButton active={view === "site"} onClick={() => chooseView("site")}>
+              Website
+            </FormatButton>
+            <FormatButton active={view === "sheet"} onClick={() => chooseView("sheet")}>
+              Excel
+            </FormatButton>
+          </div>
+        </div>
+        {view === "sheet" ? null : (
+        <>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Start">
           <StartButton active={start === "elwynn"} onClick={() => setStart("elwynn")}>
             Elwynn
@@ -110,7 +140,13 @@ export default function App() {
             </button>
           ))}
         </div>
+        </>
+        )}
       </header>
+      {view === "sheet" ? (
+        <RouteBook />
+      ) : (
+      <>
       <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
         <LevelRail stages={visible} openId={expanded ? currentId : visible[0]?.id ?? ""} onOpen={openStage} axis="x" />
       </div>
@@ -130,10 +166,29 @@ export default function App() {
           ))}
         </main>
       </div>
+      </>
+      )}
       <footer className="mx-auto max-w-7xl px-4 text-sm text-muted-foreground sm:px-6">
         Together from Hall of Thanes. Stops at 40. Quest xp from Forever Companion, 24 Oct 2026, 20:03 Europe/Warsaw.
       </footer>
     </div>
+  );
+}
+
+function FormatButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: string }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      onClick={onClick}
+      className={cn(
+        "rounded-md border px-3 py-1.5 text-sm",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        active ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {children}
+    </button>
   );
 }
 

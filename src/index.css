@@ -68,6 +68,15 @@ body {
   min-height: 100vh;
 }
 
+.workbook {
+  overflow: hidden;
+  border: 1px solid #bdbdbd;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #1a1a1a;
+  font-family: Calibri, "Segoe UI", sans-serif;
+}
+
 .map-pin {
   width: 8px;
   height: 8px;
