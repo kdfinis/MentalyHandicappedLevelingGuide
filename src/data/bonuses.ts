@@ -11,14 +11,14 @@ export const bonuses: Bonus[] = [
     id: "catfish",
     name: "Bristle Whisker Catfish",
     pct: "+5% kill XP",
-    note: "Level 15. Eat 10 sec. +8 fishing. 15 min. Cook 1 raw.",
+    note: "Level 15. Same +5% kill XP as the other meals. Also +8 fishing. Eat 10 sec. 15 min.",
     href: "https://www.wowhead.com/forever/item=4593/bristle-whisker-catfish",
   },
   {
     id: "food",
     name: "Cooked food",
     pct: "+5% kill XP",
-    note: "Well Fed. Eat 10 sec. About 15 min. Drops on death.",
+    note: "Any meal whose tooltip says it. Kills only. Sit 10 sec. 15 min. Drops on death.",
   },
   {
     id: "rested",

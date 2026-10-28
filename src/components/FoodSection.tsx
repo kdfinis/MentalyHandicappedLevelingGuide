@@ -7,8 +7,9 @@ export function FoodSection() {
         Ironforge food, 14–15
       </h2>
       <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
-        Auction House in Ironforge. About 3 hours into beta, so cooking 125 is the top of the board. Buy it cooked. Sit 10
-        seconds. One Well Fed. It falls off on death. No agility food yet.
+        Auction House in Ironforge. About 3 hours into beta, so cooking 125 is the top of the board. The leveling buff is
+        +5% experience from kills. Every meal below that says so is the same 5%. A bigger stat is not more XP. Sit 10
+        seconds. One Well Fed. 15 min. It falls off on death. Quest turn-ins are not in the tooltip.
       </p>
       <ul className="mt-3 grid gap-2 lg:grid-cols-2">
         {foodBuys.map((buy) => (
@@ -16,24 +17,27 @@ export function FoodSection() {
             <p>
               <span className="text-primary">{buy.who}</span> <span className="text-muted-foreground">{buy.role}</span>
             </p>
-            <p className="mt-1">
-              <a
-                href={buy.href}
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-primary/50 underline-offset-2 hover:decoration-primary"
-              >
-                {buy.item}
-              </a>
-            </p>
-            <p className="mt-1 text-muted-foreground">{buy.buff}</p>
+            <ul className="mt-2 flex flex-col gap-2">
+              {buy.lines.map((line) => (
+                <li key={line.item}>
+                  <a
+                    href={line.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-primary/50 underline-offset-2 hover:decoration-primary"
+                  >
+                    {line.item}
+                  </a>
+                  <p className="text-muted-foreground">{line.note}</p>
+                </li>
+              ))}
+            </ul>
           </li>
         ))}
       </ul>
       <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
-        Same +6 if the goulash is gone: Crispy Lizard Tail, eat from 12, cooking 100. At 15 these are the same buff, not
-        better: Goblin Deviled Clams, Hot Lion Chops, Seasoned Wolf Kabob, Lean Wolf Steak. Bristle Whisker Catfish stays
-        the XP food in Bonuses.
+        Hot Lion Chops and Seasoned Wolf Kabob are the same +5 agility, and they need cooking 135. Goblin Deviled Clams
+        is +6 stamina and spirit, and its tooltip does not list the kill XP.
       </p>
     </section>
   );
