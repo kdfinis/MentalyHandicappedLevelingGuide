@@ -68,13 +68,21 @@ body {
   min-height: 100vh;
 }
 
-.workbook {
-  overflow: hidden;
-  border: 1px solid #bdbdbd;
-  border-radius: 0.5rem;
-  background: #fff;
-  color: #1a1a1a;
-  font-family: Calibri, "Segoe UI", sans-serif;
+.sheet[data-dungeon="true"] {
+  background: color-mix(in oklab, oklch(0.48 0.12 300) 34%, var(--card));
+  border-color: oklch(0.62 0.1 300);
+}
+
+.quest-link {
+  border-radius: 0.25rem;
+  background: oklch(0.45 0.14 250);
+  padding: 0.05rem 0.4rem;
+  color: oklch(0.96 0.02 240);
+  text-decoration: none;
+}
+
+.quest-link:hover {
+  background: oklch(0.52 0.14 250);
 }
 
 .map-pin {
@@ -98,10 +106,6 @@ body {
     animation: draw-rule 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  .sheet[data-open="true"] .sheet-body {
-    animation: reveal 220ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
   .rail-mark {
     transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -117,17 +121,6 @@ body {
   }
   to {
     transform: scaleX(1);
-  }
-}
-
-@keyframes reveal {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 

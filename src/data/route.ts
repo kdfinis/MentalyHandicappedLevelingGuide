@@ -81,16 +81,16 @@ export const stages: Stage[] = [
     [
       L("Lvx", "Nancy Songflower, Herbalism Trainer", "52.4 43.8", "elwynn"),
       L("Dvx", "Kelsey Fargo, Mining Trainer", "47.2 32.3", "elwynn"),
-      L("Lvx", "pickup. Deputy Willem. Share.", "48.2 43.0", "elwynn"),
-      L("Lvx", "drop. Marshal McBride. Both.", "48.9 41.6", "elwynn"),
-      L("Lvx", "wolves. Eagan Peltskinner. Share.", "48.9 40.2", "elwynn"),
+      L("Lvx", "Pick up from Deputy Willem. Share the quest.", "48.2 43.0", "elwynn"),
+      L("Lvx", "Turn in to Marshal McBride. Both of you.", "48.9 41.6", "elwynn"),
+      L("Lvx", "wolves. Eagan Peltskinner. Share the quest.", "48.9 40.2", "elwynn"),
       L("Dvx", "same wolves"),
     ],
     "Coldridge",
     [
       L("Chorrengodx", "dwarf shaman. Ask a guard. Gnome cannot be shaman."),
       L("all", "spawn", "29.9 72.0", "dunmorogh"),
-      L("Dorpan", "pickup. Sten Stoutarm. Share.", "29.9 71.3", "dunmorogh"),
+      L("Dorpan", "Pick up from Sten Stoutarm. Share the quest.", "29.9 71.3", "dunmorogh"),
       L("all", "Emrys Flintbeard, Herbalism Trainer", "28.8 66.6", "dunmorogh"),
       L("Dorpan", "Sally Swiftwrench, Mining Trainer", "28.9 67.8", "dunmorogh"),
       L("Chorrengodx", "water. Adlin Pridedrift", "30.0 71.6", "dunmorogh", "Refreshing Spring Water", item(159, "refreshing-spring-water")),
@@ -101,13 +101,13 @@ export const stages: Stage[] = [
     2,
     "Kobolds",
     [
-      L("Lvx", "kobolds. Marshal McBride. Share.", "48.9 41.6", "elwynn"),
-      L("Lvx", "books. Brother Paxton. Share.", "49.6 40.4", "elwynn"),
+      L("Lvx", "kobolds. Marshal McBride. Share the quest.", "48.9 41.6", "elwynn"),
+      L("Lvx", "books. Brother Paxton. Share the quest.", "49.6 40.4", "elwynn"),
       L("Dvx", "same camps"),
     ],
     "Troll cave",
     [
-      L("Dorpan", "pickup. Grelin Whitebeard. Share.", "25.0 75.6", "dunmorogh"),
+      L("Dorpan", "Pick up from Grelin Whitebeard. Share the quest.", "25.0 75.6", "dunmorogh"),
       L("all", "stay on the boss"),
     ],
   ),
@@ -115,9 +115,9 @@ export const stages: Stage[] = [
     3,
     "Echo Ridge",
     [
-      L("Dvx", "drop. Kelsey Fargo. Mining Consultant", "47.2 32.3", "elwynn"),
-      L("Dvx", "pickup. Brother Paxton. Share.", "49.6 40.4", "elwynn"),
-      L("Lvx", "Big Picture. Drop Marshal McBride", "48.9 41.6", "elwynn"),
+      L("Dvx", "Turn in to Kelsey Fargo. Mining Consultant", "47.2 32.3", "elwynn"),
+      L("Dvx", "Pick up from Brother Paxton. Share the quest.", "49.6 40.4", "elwynn"),
+      L("Lvx", "Big Picture. Turn in to Marshal McBride", "48.9 41.6", "elwynn"),
     ],
     "Cave",
     [L("all", "same boss")],
@@ -132,7 +132,7 @@ export const stages: Stage[] = [
       L("Dvx", "dock. Jerod's Landing. No pin."),
     ],
     "Out of the cave",
-    [L("all", "drop. Mountaineer Thalos", "33.4 71.9", "dunmorogh")],
+    [L("all", "Turn in to Mountaineer Thalos", "33.4 71.9", "dunmorogh")],
   ),
   pack(
     5,
@@ -173,15 +173,15 @@ export const stages: Stage[] = [
       L("Dvx", "stay with Lvx"),
     ],
     "Earth",
-    [L("Chorrengodx", "earth quest. Can't share. No pin. Not Earthseer Farsen."), L("Dorpan", "with him"), L("Whilind", "with him")],
+    [L("Chorrengodx", "earth quest. It will not share. Each person picks it up. No pin. Not Earthseer Farsen."), L("Dorpan", "with him"), L("Whilind", "with him")],
   ),
   pack(
     7,
     "Pigs, Rare Books",
     [
-      L("Lvx", "pickup. Marshal Dughan. Share.", "42.2 65.8", "elwynn", "Rare Books", q(91777, "rare-books")),
-      L("Lvx", "drop. Brother Paxton. Bow.", "49.6 40.4", "elwynn"),
-      L("Dvx", "same drop. Sword."),
+      L("Lvx", "Pick up from Marshal Dughan. Share the quest.", "42.2 65.8", "elwynn", "Rare Books", q(91777, "rare-books")),
+      L("Lvx", "Turn in to Brother Paxton. Take the bow.", "49.6 40.4", "elwynn"),
+      L("Dvx", "Same turn in. Take the sword."),
       L("Lvx", "farm pigs again"),
       L("Lvx", "Peacebloom. Silverleaf."),
     ],
@@ -197,7 +197,7 @@ export const stages: Stage[] = [
       L("Lvx", "bolt it. Push tailor to 20."),
     ],
     "Frostmane Hold",
-    [L("Dorpan", "pickup. Senir Whitebeard. Share.", "46.7 53.7", "dunmorogh")],
+    [L("Dorpan", "Pick up from Senir Whitebeard. Share the quest.", "46.7 53.7", "dunmorogh")],
   ),
   pack(
     9,
@@ -215,10 +215,10 @@ export const stages: Stage[] = [
     ],
     "Beldin",
     [
-      L("Dorpan", "pickup. Beldin Steelgrill. Share.", "50.4 49.0", "dunmorogh"),
-      L("all", "drop. Earthseer Farsen.", "64.8 58.4", "dunmorogh"),
-      L("Dorpan", "Share the next."),
-      L("Chorrengodx", "class quest. Can't share. Needs the three."),
+      L("Dorpan", "Pick up from Beldin Steelgrill. Share the quest.", "50.4 49.0", "dunmorogh"),
+      L("all", "Turn in to Earthseer Farsen.", "64.8 58.4", "dunmorogh"),
+      L("Dorpan", "Share the next quest."),
+      L("Chorrengodx", "class quest. It will not share. Each person picks it up. Needs the three."),
       L("Dorpan", "warrior trainer. Ask a guard."),
     ],
   ),
@@ -234,16 +234,16 @@ export const stages: Stage[] = [
     [
       L("all", "troggs. No pin."),
       L("Whilind", "Maxan Anvol, Priest Trainer", "47.3 52.3", "dunmorogh"),
-      L("Dorpan", "class quest. Can't share."),
+      L("Dorpan", "class quest. It will not share. Each person picks it up."),
     ],
   ),
   pack(
     12,
     "Hogger, Sentinel Hill",
     [
-      L("Lvx", "poster. Share with Dvx."),
+      L("Lvx", "poster. Share the quest with Dvx."),
       L("Lvx, Dvx", "Hogger", "26.4 93.6", "elwynn"),
-      L("Lvx, Dvx", "drop. Marshal Dughan. Goldshire", "42.2 65.8", "elwynn"),
+      L("Lvx, Dvx", "Turn in to Marshal Dughan. Goldshire", "42.2 65.8", "elwynn"),
       L("Lvx", "FP. Gryan Stoutmantle", "56.3 47.5", "westfall"),
       L("Lvx, Dvx", "hearth. Innkeeper Allison", "60.5 75.3", "stormwind"),
       L("Dvx", "Betty Quin, Enchanting Trainer", "43.2 63.8", "stormwind"),
@@ -260,15 +260,15 @@ export const stages: Stage[] = [
 
       L("all", "FP", "55.9 47.9", "ironforge"),
       L("all", "spies. Everyone loots a map.", "76.7 60.7", "dunmorogh"),
-      L("Dorpan", "Earthseer Farsen. Share after the maps. 3190 xp.", "64.8 58.4", "dunmorogh", "Old Ironforge Incursion", q(96393, "old-ironforge-incursion")),
+      L("Dorpan", "Pick up from Earthseer Farsen. Share the quest after the maps. 3190 xp.", "64.8 58.4", "dunmorogh", "Old Ironforge Incursion", q(96393, "old-ironforge-incursion")),
       L("all", "door. Left of the High Seat.", "43.5 52.0", "ironforge"),
       L("all", "portal", "27.8 47.9", "ironforge"),
-      L("Whilind", "Afadra Dunwall, Lorekeeper. Share.", "33.0 48.0", "ironforge", "The Restless Dead", q(96394, "the-restless-dead")),
-      L("Lvx", "Thom Filch. Share.", "32.4 44.8", "ironforge", "Important Heirlooms", q(96403, "important-heirlooms")),
-      L("Dorpan", "Ghostly Attendant. Share.", undefined, undefined, "An Ancient Grudge", q(96395, "an-ancient-grudge")),
-      L("all", "tablet. Everyone. Can't share.", "39.4 55.8", "ironforge", "The Treaty of Understanding", q(98423, "the-treaty-of-understanding")),
+      L("Whilind", "Pick up from Afadra Dunwall, Lorekeeper. Share the quest.", "33.0 48.0", "ironforge", "The Restless Dead", q(96394, "the-restless-dead")),
+      L("Lvx", "Pick up from Thom Filch. Share the quest.", "32.4 44.8", "ironforge", "Important Heirlooms", q(96403, "important-heirlooms")),
+      L("Dorpan", "Pick up from Ghostly Attendant. Share the quest.", undefined, undefined, "An Ancient Grudge", q(96395, "an-ancient-grudge")),
+      L("all", "tablet. Everyone. It will not share. Each person picks it up.", "39.4 55.8", "ironforge", "The Treaty of Understanding", q(98423, "the-treaty-of-understanding")),
       L("all", "Clear Faldrim, Magmatus, Plunder, Durgen. Kegs first. Pull Plunder back."),
-      L("all", "All five drop King Magni Bronzebeard before anyone leaves."),
+      L("all", "All five turn in to King Magni Bronzebeard before anyone leaves."),
       L("Lvx", "Blunderbuss", undefined, undefined, "Calibrated Blunderbuss", item(279894, "calibrated-blunderbuss")),
       L("Chorrengodx", "Greathammer", undefined, undefined, "Ironforge Greathammer", item(279895, "ironforge-greathammer")),
       L("Dorpan", "Greathammer"),
@@ -291,40 +291,40 @@ export const stages: Stage[] = [
   ]),
   same(16, "Troggs done", [L("Full group", "finish the yellow camps. Then Westfall.")]),
   same(17, "Sentinel Hill", [
-    L("Dvx", "pickup. Gryan Stoutmantle. Share. Come back.", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
+    L("Dvx", "Pick up from Gryan Stoutmantle. Share the quest. Turn it in here later.", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
     L("Full group", "crabs and gnolls while the log fills"),
   ]),
   same(18, "Wells, Lakeshire", [
-    L("Lvx", "pickup. Alba Fairmoon. Share.", "52.4 53.0", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
-    L("Dorpan", "pickup. Wiley the Black. Share. Come back.", "21.4 45.4", "redridge"),
-    L("Dorpan", "Guard Berton at 22. Dorin Songblade at 24. Share when they are up."),
+    L("Lvx", "Pick up from Alba Fairmoon. Share the quest.", "52.4 53.0", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
+    L("Dorpan", "Pick up from Wiley the Black. Share the quest. Turn it in here later.", "21.4 45.4", "redridge"),
+    L("Dorpan", "Guard Berton at 22. Dorin Songblade at 24. Share those quests when they are available."),
   ]),
   same(19, "Moonbrook", [
     L("Full group", "door. Do not zone in.", "42 72", "westfall"),
-    L("Dvx", "crates, Master Mathias Shaw, dynamite. Share. Come back. Follow the quest text.", "78.3 70.7", "stormwind"),
+    L("Dvx", "crates, Master Mathias Shaw, dynamite. Share the quest. Turn it in here later. Follow the quest text.", "78.3 70.7", "stormwind"),
     L("Full group", "messenger, then the escort"),
   ]),
   same(
     20,
     "Deadmines",
     [
-      L("Dvx", "Wilder Thistlenettle. Share. Come back.", "65 21", "stormwind", "Collecting Memories", q(168, "collecting-memories")),
-      L("Dvx", "same Wilder Thistlenettle. Share.", "65 21", "stormwind", "Oh Brother", q(167, "oh-brother")),
-      L("Dvx", "Shoni the Shilent. Share. If it refuses, everyone.", "55 13", "stormwind", "Underground Assault", q(2040, "underground-assault")),
-      L("Whilind", "Scout Riell. Share.", "56.7 47.4", "westfall", "Red Silk Bandanas", q(214, "red-silk-bandanas")),
+      L("Dvx", "Pick up from Wilder Thistlenettle. Share the quest. Turn it in here later.", "65 21", "stormwind", "Collecting Memories", q(168, "collecting-memories")),
+      L("Dvx", "Pick up the next from the same Wilder Thistlenettle. Share the quest.", "65 21", "stormwind", "Oh Brother", q(167, "oh-brother")),
+      L("Dvx", "Pick up from Shoni the Shilent. Share the quest. If share fails, each person picks it up.", "55 13", "stormwind", "Underground Assault", q(2040, "underground-assault")),
+      L("Whilind", "Pick up from Scout Riell. Share the quest.", "56.7 47.4", "westfall", "Red Silk Bandanas", q(214, "red-silk-bandanas")),
       L("Full group", "door", "42 72", "westfall"),
-      L("Full group", "one clear. Do not reset."),
-      L("Full group", "letter. Everyone loots. Can't share."),
-      L("Full group", "drop. Gryan Stoutmantle", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
-      L("Full group", "drop. Scout Riell", "56.7 47.4", "westfall"),
-      L("Full group", "drop. Wilder Thistlenettle", "65 21", "stormwind"),
-      L("Full group", "drop. Shoni the Shilent", "55 13", "stormwind"),
-      L("Full group", "plant. Drop Alba Fairmoon.", "38.4 83.4", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
+      L("Full group", "Clear the dungeon once. Do not reset."),
+      L("Full group", "Everyone loots the letter. It will not share."),
+      L("Full group", "Turn in to Gryan Stoutmantle", "56.3 47.5", "westfall", "The Defias Brotherhood", q(166, "the-defias-brotherhood")),
+      L("Full group", "Turn in to Scout Riell", "56.7 47.4", "westfall"),
+      L("Full group", "Turn in to Wilder Thistlenettle", "65 21", "stormwind"),
+      L("Full group", "Turn in to Shoni the Shilent", "55 13", "stormwind"),
+      L("Full group", "Finish the objective at this pin, then turn in to Alba Fairmoon.", "38.4 83.4", "westfall", "Destruction in Deadmines", q(92753, "destruction-in-deadmines")),
       L("Full group", "letter. Everyone. Baror Alexston.", "57.6 47.8", "stormwind"),
       L("Dvx", "Poisons. Master Mathias Shaw. Old Town. Then Agent Kearnen, Westfall.", "78.3 70.7", "stormwind"),
       L("Dorpan", "Yorus Barleybrew. Lakeshire inn."),
       L("Chorrengodx", "Call of Water. Eldrun Stormbreaker", "47.4 13.6", "ironforge", "Call of Water", q(94494, "call-of-water")),
-      L("Chorrengodx", "drop. Norric Lochthane. Loch", "41.8 19.0", "loch"),
+      L("Chorrengodx", "Turn in to Norric Lochthane. Loch", "41.8 19.0", "loch"),
       L("Chorrengodx", "Water chain on the road. Leave Ashenvale."),
       L("Lvx", "Bags, or sleep. Optional."),
       L("Whilind", "Same. More rested."),
@@ -342,53 +342,53 @@ export const stages: Stage[] = [
   ]),
   same(22, "Gnolls", [
     L("Full group", "Menethil road"),
-    L("Dorpan", "Guard Berton. Share. Come back.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
+    L("Dorpan", "Pick up from Guard Berton. Share the quest. Turn it in here later.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
   ]),
   same(23, "Dun Modr", [
     L("Full group", "orcs"),
-    L("Dorpan", "Motley Garmason. Share. May still be grey.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
+    L("Dorpan", "Pick up from Motley Garmason. Share the quest. May still be grey.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
   ]),
   same(24, "Orcs", [L("Full group", "Wetlands orcs")]),
   same(25, "Raptors", [
     L("Whilind", "Sweet Nectar. Menethil."),
     L("Chorrengodx", "same nectar"),
-    L("Dvx", "James Halloran. Share. Hides on the way.", "8.6 55.7", "wetlands", "Highland Hides", q(98815, "highland-hides")),
+    L("Dvx", "Pick up from James Halloran. Share the quest. Hides on the way.", "8.6 55.7", "wetlands", "Highland Hides", q(98815, "highland-hides")),
   ]),
   same(
     26,
     "Stockade",
     [
-      L("Dorpan", "Guard Berton. Share. Come back.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
-      L("Whilind", "Councilman Millstipe. Share. Come back.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
-      L("Dorpan", "Motley Garmason. Share. Dun Modr.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
-      L("Dvx", "Nikova Raskol. Share. Come back.", "73.8 54.6", "stormwind", "The Color of Blood", q(388, "the-color-of-blood")),
-      L("Lvx", "Warden Thelwater. Share.", "51.5 69.4", "stormwind", "Quell The Uprising", q(387, "quell-the-uprising")),
-      L("Lvx", "Riots. Share after every letter. If it refuses, everyone.", "51.5 69.4", "stormwind", "The Stockade Riots", q(391, "the-stockade-riots")),
+      L("Dorpan", "Pick up from Guard Berton. Share the quest. Turn it in here later.", "21.2 46.6", "redridge", "What Comes Around", q(386, "what-comes-around")),
+      L("Whilind", "Pick up from Councilman Millstipe. Share the quest. Turn it in here later.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
+      L("Dorpan", "Pick up from Motley Garmason. Share the quest. Dun Modr.", "49.7 18.2", "wetlands", "The Fury Runs Deep", q(378, "the-fury-runs-deep")),
+      L("Dvx", "Pick up from Nikova Raskol. Share the quest. Turn it in here later.", "73.8 54.6", "stormwind", "The Color of Blood", q(388, "the-color-of-blood")),
+      L("Lvx", "Pick up from Warden Thelwater. Share the quest.", "51.5 69.4", "stormwind", "Quell The Uprising", q(387, "quell-the-uprising")),
+      L("Lvx", "Riots. Share the quest after every letter. If share fails, each person picks it up.", "51.5 69.4", "stormwind", "The Stockade Riots", q(391, "the-stockade-riots")),
       L("Full group", "Mage Quarter canal. One clear."),
     ],
     true,
   ),
   same(27, "Darkshire", [
     L("Full group", "FP. Ghouls."),
-    L("Whilind", "Councilman Millstipe. Share if he is up.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
+    L("Whilind", "Pick up from Councilman Millstipe. Share the quest if it is available.", "71.9 47.8", "duskwood", "Crime and Punishment", q(377, "crime-and-punishment")),
   ]),
   same(28, "Raven Hill", [L("Full group", "ghouls")]),
   same(29, "Ghouls", [
     L("Full group", "finish, then the dig"),
-    L("Lvx", "Dorin Songblade. Share. Come back.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
+    L("Lvx", "Pick up from Dorin Songblade. Share the quest. Turn it in here later.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
   ]),
   same(
     30,
     "Excavation",
     [
-      L("Lvx", "Dorin Songblade. Share. Come back.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
-      L("Lvx", "Rethiel the Greenwarden. Share.", "56.3 40.3", "wetlands", "Horrors in the Highland", q(95646, "horrors-in-the-highland")),
-      L("Whilind", "Caitlin Grassman. Share. Menethil.", "11.9 58.8", "wetlands", "Lost in the Thicker Things", q(95647, "lost-in-the-thicket-things")),
+      L("Lvx", "Pick up from Dorin Songblade. Share the quest. Turn it in here later.", "25.6 46.6", "redridge", "Songblade Search", q(95772, "songblade-search")),
+      L("Lvx", "Pick up from Rethiel the Greenwarden. Share the quest.", "56.3 40.3", "wetlands", "Horrors in the Highland", q(95646, "horrors-in-the-highland")),
+      L("Whilind", "Pick up from Caitlin Grassman. Share the quest. Menethil.", "11.9 58.8", "wetlands", "Lost in the Thicker Things", q(95647, "lost-in-the-thicket-things")),
       L("Full group", "Skip Ashenvale.", undefined, undefined, "Seeking Caitlin", q(95737, "seeking-caitlin")),
       L("Full group", "above Whelgar. One clear."),
-      L("Full group", "relic. Whoever loots. Can't share.", undefined, undefined, "Lost Relic Carry", q(95810, "lost-relic-carry")),
-      L("Dorpan", "Daewwn Songblade. Share.", undefined, undefined, "Fallen in the Fen", q(95795, "fallen-in-the-fen")),
-      L("Full group", "drop. Dorin Songblade.", "25.6 46.6", "redridge"),
+      L("Full group", "relic. Whoever loots. It will not share. Each person picks it up.", undefined, undefined, "Lost Relic Carry", q(95810, "lost-relic-carry")),
+      L("Dorpan", "Pick up from Daewwn Songblade. Share the quest.", undefined, undefined, "Fallen in the Fen", q(95795, "fallen-in-the-fen")),
+      L("Full group", "Turn in to Dorin Songblade.", "25.6 46.6", "redridge"),
     ],
     true,
   ),
@@ -396,11 +396,11 @@ export const stages: Stage[] = [
     31,
     "Dalaran",
     [
-      L("Lvx", "High Sorcerer Andromath. Share. Come back.", "37.6 81.6", "stormwind", "Power Overwhelming", q(92489, "power-overwhelming")),
-      L("Dvx", "Archmage Modera. Share. If Heart refuses, everyone.", undefined, undefined, "Heart of Disruption", q(92458, "heart-of-disruption")),
-      L("Dvx", "same Archmage Modera. Share.", undefined, undefined, "Starving Arcane", q(92457, "starving-arcane")),
-      L("Dvx", "Shylamiir. Share.", undefined, undefined, "A Green Sample", q(92456, "a-green-sample")),
-      L("Whilind", "Magus Olvek. Share.", undefined, undefined, "Past Due", q(96800, "past-due")),
+      L("Lvx", "Pick up from High Sorcerer Andromath. Share the quest. Turn it in here later.", "37.6 81.6", "stormwind", "Power Overwhelming", q(92489, "power-overwhelming")),
+      L("Dvx", "Pick up from Archmage Modera. Share the quest. If Heart will not share, each person picks it up.", undefined, undefined, "Heart of Disruption", q(92458, "heart-of-disruption")),
+      L("Dvx", "Pick up the next from the same Archmage Modera. Share the quest.", undefined, undefined, "Starving Arcane", q(92457, "starving-arcane")),
+      L("Dvx", "Pick up from Shylamiir. Share the quest.", undefined, undefined, "A Green Sample", q(92456, "a-green-sample")),
+      L("Whilind", "Pick up from Magus Olvek. Share the quest.", undefined, undefined, "Past Due", q(96800, "past-due")),
       L("Full group", "Door pin 44.0 30.1 is not confirmed. One clear. Beta-locked in the 24 Oct set."),
     ],
     true,
@@ -409,8 +409,8 @@ export const stages: Stage[] = [
     32,
     "Graveyard, Library",
     [
-      L("Whilind", "Raleigh the Devout. Share. Come back.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
-      L("Dorpan", "Librarian Mae Paledust. Share. Come back.", "74.6 12.6", "ironforge", "Mythology of the Titans", q(1050, "mythology-of-the-titans")),
+      L("Whilind", "Pick up from Raleigh the Devout. Share the quest. Turn it in here later.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
+      L("Dorpan", "Pick up from Librarian Mae Paledust. Share the quest. Turn it in here later.", "74.6 12.6", "ironforge", "Mythology of the Titans", q(1050, "mythology-of-the-titans")),
       L("Full group", "Graveyard first. No separate Alliance quest."),
       L("Full group", "Magus Olvek's book is in here", undefined, undefined, "Past Due", q(96800, "past-due")),
     ],
@@ -430,7 +430,7 @@ export const stages: Stage[] = [
     "Cathedral",
     [
       L("Full group", "this wing only. One clear."),
-      L("Full group", "drop. Raleigh the Devout. Southshore.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
+      L("Full group", "Turn in to Raleigh the Devout. Southshore.", "51.4 58.4", "hillsbrad", "In the Name of the Light", q(1053, "in-the-name-of-the-light")),
     ],
     true,
   ),
@@ -453,18 +453,37 @@ export const stages: Stage[] = [
   ]),
 ];
 
-export type FilterId = "all" | "openers" | "dungeons";
+export type FilterId = "to10" | "to20" | "to30" | "to40";
 
 export const filters: { id: FilterId; label: string }[] = [
-  { id: "all", label: "1–40" },
-  { id: "openers", label: "1–12" },
-  { id: "dungeons", label: "Dungeons" },
+  { id: "to10", label: "1–10" },
+  { id: "to20", label: "11–20" },
+  { id: "to30", label: "21–30" },
+  { id: "to40", label: "31–40" },
 ];
 
+export function bandForLevel(level: number): FilterId {
+  if (level <= 10) return "to10";
+  if (level <= 20) return "to20";
+  if (level <= 30) return "to30";
+  return "to40";
+}
+
 export function matches(stage: Stage, filter: FilterId) {
-  if (filter === "openers") return stage.level <= 12;
-  if (filter === "dungeons") return stage.dungeon === true;
-  return true;
+  switch (filter) {
+    case "to10":
+      return stage.level <= 10;
+    case "to20":
+      return stage.level >= 11 && stage.level <= 20;
+    case "to30":
+      return stage.level >= 21 && stage.level <= 30;
+    case "to40":
+      return stage.level >= 31;
+    default: {
+      const neverFilter: never = filter;
+      return neverFilter;
+    }
+  }
 }
 
 export function blockFor(stage: Stage, start: StartId) {

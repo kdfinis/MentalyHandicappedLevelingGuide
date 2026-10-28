@@ -18,13 +18,25 @@ export function LevelRail({ stages, openId, onOpen, axis = "y" }: LevelRailProps
   const horizontal = axis === "x";
 
   useEffect(() => {
-    current.current?.scrollIntoView({ block: "nearest", inline: "center" });
-  }, [openId, stages]);
+    const button = current.current;
+    const scroller = button?.closest("[data-rail-scroll]");
+    if (!button || !(scroller instanceof HTMLElement)) return;
+    const buttonRect = button.getBoundingClientRect();
+    const scrollerRect = scroller.getBoundingClientRect();
+    if (horizontal) {
+      scroller.scrollLeft += buttonRect.left - scrollerRect.left - scroller.clientWidth / 2 + button.clientWidth / 2;
+      return;
+    }
+    scroller.scrollTop += buttonRect.top - scrollerRect.top - scroller.clientHeight / 2 + button.clientHeight / 2;
+  }, [openId, stages, horizontal]);
 
   return (
     <nav aria-label="Levels" className={cn(horizontal ? "flex items-center gap-2" : "sticky top-4")}>
       <p className={cn("text-xs tracking-wide text-muted-foreground", horizontal ? "shrink-0" : "px-1 pb-1")}>Lvl</p>
-      <div className={cn(horizontal ? "min-w-0 flex-1 overflow-x-auto" : "max-h-[calc(100vh-2rem)] overflow-y-auto")}>
+      <div
+        data-rail-scroll
+        className={cn(horizontal ? "min-w-0 flex-1 overflow-x-auto" : "max-h-[calc(100vh-2rem)] overflow-y-auto")}
+      >
         <ol className={cn("relative", horizontal ? "flex w-max gap-1 py-1" : "flex flex-col gap-1")}>
         <li
           aria-hidden="true"

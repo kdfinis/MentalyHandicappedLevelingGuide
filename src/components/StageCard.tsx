@@ -6,13 +6,10 @@ import { MapSpot } from "./MapSpot";
 type StageCardProps = {
   stage: Stage;
   start: StartId;
-  open: boolean;
-  onToggle: () => void;
 };
 
-export function StageCard({ stage, start, open, onToggle }: StageCardProps) {
+export function StageCard({ stage, start }: StageCardProps) {
   const block = blockFor(stage, start);
-  const panelId = `${stage.id}-panel`;
   const photoIndexes = block.lines.flatMap((line, index) => (line.way && line.map ? [index] : []));
   const [photos, setPhotos] = useState<Set<number>>(() => new Set());
   const previewOpen = photoIndexes.length > 0 && photoIndexes.every((index) => photos.has(index));
@@ -35,18 +32,12 @@ export function StageCard({ stage, start, open, onToggle }: StageCardProps) {
   }
 
   return (
-    <article id={stage.id} className="sheet scroll-mt-28 rounded-lg border border-border bg-card" data-open={open}>
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={panelId}
-        onClick={onToggle}
-        className={cn(
-          "flex w-full items-baseline gap-3 rounded-lg px-3 py-3 text-left sm:px-4",
-          "transition-colors duration-200 hover:bg-muted",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        )}
-      >
+    <article
+      id={stage.id}
+      className="sheet scroll-mt-28 rounded-lg border border-border bg-card"
+      data-dungeon={stage.dungeon ? "true" : "false"}
+    >
+      <div className="flex w-full items-baseline gap-3 px-3 py-3 text-left sm:px-4">
         <span className="flex items-baseline gap-1.5">
           <span className="text-xs tracking-wide text-muted-foreground">Lvl</span>
           <span className="font-display text-3xl leading-none text-primary tabular-nums">{stage.level}</span>
@@ -54,12 +45,11 @@ export function StageCard({ stage, start, open, onToggle }: StageCardProps) {
         <span className="min-w-0 flex-1">
           <span className="block font-display text-xl tracking-tight">{block.title}</span>
           <span className="mt-0.5 block text-sm text-muted-foreground">
-            {stage.level >= 15 ? "Full group" : stage.dungeon ? "Dungeon" : start === "elwynn" ? "Lvx, Dvx" : "Chorrengodx, Dorpan, Whilind"}
+            {stage.dungeon ? "Dungeon" : stage.level >= 15 ? "Full group" : start === "elwynn" ? "Lvx, Dvx" : "Chorrengodx, Dorpan, Whilind"}
           </span>
         </span>
-      </button>
-      {open ? (
-        <div id={panelId} className="sheet-body border-t border-border px-3 py-4 sm:px-4">
+      </div>
+      <div className="sheet-body border-t border-border px-3 py-4 sm:px-4">
           {stage.dungeon && photoIndexes.length > 0 ? (
             <div className="mb-3">
               <button
@@ -92,8 +82,7 @@ export function StageCard({ stage, start, open, onToggle }: StageCardProps) {
               <Copy text={macro} mark="all" />
             </div>
           ) : null}
-        </div>
-      ) : null}
+      </div>
     </article>
   );
 }
@@ -113,7 +102,7 @@ function Tip({ n, line, photoOpen, onPhoto }: { n: number; line: Line; photoOpen
               href={line.href}
               target="_blank"
               rel="noreferrer"
-              className="underline decoration-primary/50 underline-offset-2 hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="quest-link focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               {line.link}
             </a>

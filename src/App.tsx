@@ -1,86 +1,46 @@
 import { useMemo, useState } from "react";
 import { FoodSection } from "./components/FoodSection";
 import { LevelRail } from "./components/LevelRail";
-import { RouteBook } from "./components/RouteBook";
 import { StageCard } from "./components/StageCard";
 import { bonuses } from "./data/bonuses";
-import { filters, matches, parties, stages, type FilterId, type StartId } from "./data/route";
+import { bandForLevel, filters, matches, parties, stages, type FilterId, type StartId } from "./data/route";
 import { cn } from "./lib/cn";
-
-type ViewId = "site" | "sheet";
-
-function initialView(): ViewId {
-  return new URLSearchParams(window.location.search).get("view") === "sheet" ? "sheet" : "site";
-}
 
 function initialStage() {
   const hash = window.location.hash.replace("#", "");
   return stages.some((stage) => stage.id === hash) ? hash : "l01";
 }
 
+function initialFilter(): FilterId {
+  const hash = window.location.hash.replace("#", "");
+  const stage = stages.find((item) => item.id === hash);
+  return stage ? bandForLevel(stage.level) : "to10";
+}
+
 export default function App() {
   const [start, setStart] = useState<StartId>("elwynn");
   const [currentId, setCurrentId] = useState(initialStage);
-  const [expanded, setExpanded] = useState(true);
-  const [filter, setFilter] = useState<FilterId>("all");
+  const [filter, setFilter] = useState<FilterId>(initialFilter);
   const [bonusId, setBonusId] = useState(bonuses[0].id);
-  const [view, setView] = useState<ViewId>(initialView);
   const bonus = bonuses.find((item) => item.id === bonusId) ?? bonuses[0];
   const visible = useMemo(() => stages.filter((stage) => matches(stage, filter)), [filter]);
 
-  function openStage(id: string) {
+  function showStage(id: string) {
     const stage = stages.find((item) => item.id === id);
-    if (stage && !matches(stage, filter)) setFilter("all");
+    if (stage && !matches(stage, filter)) setFilter(bandForLevel(stage.level));
     setCurrentId(id);
-    setExpanded(true);
     const url = new URL(window.location.href);
     url.hash = id;
     window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({
-        behavior: reduce ? "auto" : "smooth",
-        block: "start",
-      });
+      document.getElementById(id)?.scrollIntoView({ behavior: "auto", block: "start" });
     });
-  }
-
-  function chooseView(next: ViewId) {
-    setView(next);
-    const url = new URL(window.location.href);
-    if (next === "sheet") url.searchParams.set("view", "sheet");
-    else url.searchParams.delete("view");
-    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
-  }
-
-  function toggle(id: string) {
-    if (id === currentId && expanded) {
-      setExpanded(false);
-      return;
-    }
-    openStage(id);
   }
 
   return (
     <div className="min-h-screen pb-16">
       <header className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pt-6 sm:px-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
-          <label className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground">View</span>
-            <select
-              value={view}
-              aria-label="View"
-              onChange={(event) => chooseView(event.target.value === "sheet" ? "sheet" : "site")}
-              className="rounded-md border border-border bg-card px-3 py-1.5 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              <option value="site">Website</option>
-              <option value="sheet">Excel</option>
-            </select>
-          </label>
-        </div>
-        {view === "sheet" ? null : (
-        <>
+        <h1 className="font-display text-3xl tracking-tight">Swedish Team Level Guide</h1>
         <div className="flex flex-wrap gap-2" role="group" aria-label="Start">
           <StartButton active={start === "elwynn"} onClick={() => setStart("elwynn")}>
             Elwynn
@@ -145,37 +105,23 @@ export default function App() {
             </button>
           ))}
         </div>
-        </>
-        )}
       </header>
-      {view === "sheet" ? (
-        <RouteBook />
-      ) : (
-      <>
       <div className="pt-4">
         <FoodSection />
       </div>
       <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
-        <LevelRail stages={visible} openId={expanded ? currentId : visible[0]?.id ?? ""} onOpen={openStage} axis="x" />
+        <LevelRail stages={visible} openId={currentId} onOpen={showStage} axis="x" />
       </div>
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[4.5rem_minmax(0,1fr)]">
         <div className="hidden lg:block">
-          <LevelRail stages={visible} openId={expanded ? currentId : visible[0]?.id ?? ""} onOpen={openStage} />
+          <LevelRail stages={visible} openId={currentId} onOpen={showStage} />
         </div>
         <main className="flex min-w-0 flex-col gap-3" aria-label="Route">
           {visible.map((stage) => (
-            <StageCard
-              key={`${stage.id}-${start}`}
-              stage={stage}
-              start={start}
-              open={expanded && stage.id === currentId}
-              onToggle={() => toggle(stage.id)}
-            />
+            <StageCard key={`${stage.id}-${start}`} stage={stage} start={start} />
           ))}
         </main>
       </div>
-      </>
-      )}
       <footer className="mx-auto max-w-7xl px-4 text-sm text-muted-foreground sm:px-6">
         Together from Hall of Thanes. Stops at 40. Quest xp from Forever Companion, 24 Oct 2026, 20:03 Europe/Warsaw.
       </footer>
