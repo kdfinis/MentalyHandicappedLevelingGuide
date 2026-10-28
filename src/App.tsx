@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { FoodSection } from "./components/FoodSection";
 import { LevelRail } from "./components/LevelRail";
 import { RouteBook } from "./components/RouteBook";
 import { StageCard } from "./components/StageCard";
@@ -151,6 +152,9 @@ export default function App() {
         <RouteBook />
       ) : (
       <>
+      <div className="pt-4">
+        <FoodSection />
+      </div>
       <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
         <LevelRail stages={visible} openId={expanded ? currentId : visible[0]?.id ?? ""} onOpen={openStage} axis="x" />
       </div>

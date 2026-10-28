@@ -1,3 +1,4 @@
+import { foodBuys } from "../data/food";
 import { bonusRows, routeRows } from "../data/sheet";
 
 function escapeXml(value: string) {
@@ -27,6 +28,7 @@ export function workbookXml() {
   const bonusRowsXml = bonuses
     .map((item) => row([item.name, item.effect, item.note], [item.href, undefined, undefined]))
     .join("");
+  const foodRowsXml = foodBuys.map((item) => row([item.who, item.item, item.buff], [undefined, item.href, undefined])).join("");
 
   return `<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
@@ -41,6 +43,12 @@ ${routeRowsXml}
 <Table>
 <Row>${["Bonus", "Effect", "Note"].map((label) => cell(label)).join("")}</Row>
 ${bonusRowsXml}
+</Table>
+</Worksheet>
+<Worksheet ss:Name="Food">
+<Table>
+<Row>${["Who", "Buy", "Buff"].map((label) => cell(label)).join("")}</Row>
+${foodRowsXml}
 </Table>
 </Worksheet>
 </Workbook>`;
