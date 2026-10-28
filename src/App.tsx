@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
-import { DamageSection } from "./components/DamageSection";
-import { FoodSection } from "./components/FoodSection";
+import { ConsumeSection } from "./components/ConsumeSection";
 import { LevelRail } from "./components/LevelRail";
 import { StageCard } from "./components/StageCard";
 import { bonuses } from "./data/bonuses";
@@ -21,14 +20,17 @@ function initialFilter(): FilterId {
 export default function App() {
   const [start, setStart] = useState<StartId>("elwynn");
   const [currentId, setCurrentId] = useState(initialStage);
-  const [filter, setFilter] = useState<FilterId>(initialFilter);
+  const [filter, setFilter] = useState<FilterId | "consume">(initialFilter);
   const [bonusId, setBonusId] = useState(bonuses[0].id);
   const bonus = bonuses.find((item) => item.id === bonusId) ?? bonuses[0];
-  const visible = useMemo(() => stages.filter((stage) => matches(stage, filter)), [filter]);
+  const visible = useMemo(
+    () => (filter === "consume" ? [] : stages.filter((stage) => matches(stage, filter))),
+    [filter],
+  );
 
   function showStage(id: string) {
     const stage = stages.find((item) => item.id === id);
-    if (stage && !matches(stage, filter)) setFilter(bandForLevel(stage.level));
+    if (stage && (filter === "consume" || !matches(stage, filter))) setFilter(bandForLevel(stage.level));
     setCurrentId(id);
     const url = new URL(window.location.href);
     url.hash = id;
@@ -105,25 +107,39 @@ export default function App() {
               {item.label}
             </button>
           ))}
+          <button
+            type="button"
+            aria-pressed={filter === "consume"}
+            onClick={() => setFilter("consume")}
+            className={cn(
+              "rounded-md border px-3 py-1.5 text-sm",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              filter === "consume" ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground hover:text-foreground",
+            )}
+          >
+            Consume
+          </button>
         </div>
       </header>
-      <div className="pt-4">
-        <FoodSection />
-        <DamageSection />
-      </div>
-      <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
-        <LevelRail stages={visible} openId={currentId} onOpen={showStage} axis="x" />
-      </div>
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[4.5rem_minmax(0,1fr)]">
-        <div className="hidden lg:block">
-          <LevelRail stages={visible} openId={currentId} onOpen={showStage} />
-        </div>
-        <main className="flex min-w-0 flex-col gap-3" aria-label="Route">
-          {visible.map((stage) => (
-            <StageCard key={`${stage.id}-${start}`} stage={stage} start={start} />
-          ))}
-        </main>
-      </div>
+      {filter === "consume" ? (
+        <ConsumeSection />
+      ) : (
+        <>
+          <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
+            <LevelRail stages={visible} openId={currentId} onOpen={showStage} axis="x" />
+          </div>
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[4.5rem_minmax(0,1fr)]">
+            <div className="hidden lg:block">
+              <LevelRail stages={visible} openId={currentId} onOpen={showStage} />
+            </div>
+            <main className="flex min-w-0 flex-col gap-3" aria-label="Route">
+              {visible.map((stage) => (
+                <StageCard key={`${stage.id}-${start}`} stage={stage} start={start} />
+              ))}
+            </main>
+          </div>
+        </>
+      )}
       <footer className="mx-auto max-w-7xl px-4 text-sm text-muted-foreground sm:px-6">
         Together from Hall of Thanes. Stops at 40. Quest xp from Forever Companion, 24 Oct 2026, 20:03 Europe/Warsaw.
       </footer>
