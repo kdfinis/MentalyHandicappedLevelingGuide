@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { DamageSection } from "./components/DamageSection";
 import { FoodSection } from "./components/FoodSection";
 import { LevelRail } from "./components/LevelRail";
 import { StageCard } from "./components/StageCard";
@@ -108,6 +109,7 @@ export default function App() {
       </header>
       <div className="pt-4">
         <FoodSection />
+        <DamageSection />
       </div>
       <div className="sticky top-0 z-20 border-b border-border bg-background/90 px-4 py-2 backdrop-blur lg:hidden">
         <LevelRail stages={visible} openId={currentId} onOpen={showStage} axis="x" />
